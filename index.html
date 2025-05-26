@@ -1,133 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-gray-900 text-white">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scout Zone ET - Registration</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 500px;
-      margin: 40px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #007bff;
-    }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    #confirmation {
-      display: none;
-      text-align: center;
-    }
-    #confirmation img {
-      width: 200px;
-      margin-top: 15px;
-    }
-    .player-id {
-      font-weight: bold;
-      font-size: 18px;
-      color: #28a745;
-    }
-  </style>
+  <title>Scout Zone ET</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>Scout Zone ET</h2>
-    <form id="registration-form">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" required />
-
-      <label for="age">Age</label>
-      <input type="number" id="age" required />
-
-      <label for="position">Position</label>
-      <input type="text" id="position" required />
-
-      <label for="phone">Phone Number</label>
-      <input type="text" id="phone" required />
-
-      <label for="region">Region (Ethiopia)</label>
-      <input type="text" id="region" required />
-
-      <button type="submit">Register</button>
+<body class="flex items-center justify-center min-h-screen p-4">
+  <div class="bg-gray-800 p-6 rounded-xl w-full max-w-md shadow-xl">
+    <h1 class="text-2xl font-bold text-center mb-6">🇪🇹 Real Madrid Scout Registration – Ethiopia</h1>
+    
+    <form id="scoutForm" class="space-y-4">
+      <input name="name" placeholder="Full Name" required class="w-full p-3 bg-gray-700 rounded" />
+      <input name="age" placeholder="Age" type="number" required class="w-full p-3 bg-gray-700 rounded" />
+      <input name="position" placeholder="Position (e.g. Midfielder)" required class="w-full p-3 bg-gray-700 rounded" />
+      <input name="phone" placeholder="Phone Number" required class="w-full p-3 bg-gray-700 rounded" />
+      <input name="region" placeholder="Region (e.g. Addis Ababa)" required class="w-full p-3 bg-gray-700 rounded" />
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded font-bold">Register</button>
     </form>
 
-    <div id="confirmation">
-      <p>✅ Registration submitted successfully!</p>
-      <p>Your Player ID:</p>
-      <p class="player-id" id="pid"></p>
-      <p>Now pay <strong>5 USDT</strong> to complete registration:</p>
-      <img src="14cd9bf2-14ee-470f-af26-579f82eab6f0.png" alt="Binance Pay QR Code">
-      <p>📱 Use Binance App to scan and send</p>
+    <div id="result" class="mt-6 text-center hidden">
+      <h2 class="text-green-400 font-bold text-lg">🎉 Registered Successfully!</h2>
+      <p class="mt-2 text-gray-300" id="playerIdDisplay"></p>
+      <p class="mt-4 text-yellow-400">Send payment to Binance ID: <strong>binancepay816833590</strong></p>
+      <img src="14cd9bf2-14ee-470f-af26-579f82eab6f0.png" alt="Binance QR" class="mx-auto mt-4 rounded" />
     </div>
   </div>
 
   <script>
-    const form = document.getElementById("registration-form");
-    const confirmation = document.getElementById("confirmation");
-    const pidText = document.getElementById("pid");
+    const form = document.getElementById("scoutForm");
+    const result = document.getElementById("result");
+    const playerIdDisplay = document.getElementById("playerIdDisplay");
 
-    function generateID() {
-      return 'SZET-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    function generatePlayerID() {
+      const id = "ETH-" + Math.random().toString(36).substring(2, 7).toUpperCase();
+      return id;
     }
 
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const playerId = generateID();
 
-      const data = {
-        name: document.getElementById("name").value,
-        age: document.getElementById("age").value,
-        position: document.getElementById("position").value,
-        phone: document.getElementById("phone").value,
-        region: document.getElementById("region").value,
-        playerId: playerId,
-      };
+      const playerId = generatePlayerID();
+      playerIdDisplay.textContent = `Your Player ID: ${playerId}`;
 
-      try {
-        await fetch("https://script.google.com/macros/s/AKfycbzgCFvpKlhPw8BzvTUmnDKQT9ieoCAxhyKruyDL6S13G204QMS7a8O4uJgsBKqN8t4W8g/exec", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        form.style.display = "none";
-        pidText.textContent = playerId;
-        confirmation.style.display = "block";
-      } catch (err) {
-        alert("There was a problem submitting your registration. Try again later.");
-        console.error(err);
-      }
+      const data = new FormData();
+      data.append("entry.1111111111", form.name.value);     // Full Name
+      data.append("entry.2222222222", form.age.value);      // Age
+      data.append("entry.3333333333", form.position.value); // Position
+      data.append("entry.4444444444", form.phone.value);    // Phone Number
+      data.append("entry.5555555555", form.region.value);   // Region
+      data.append("entry.6666666666", playerId);            // Unique ID
+
+      fetch("https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: data
+      });
+
+      form.reset();
+      form.classList.add("hidden");
+      result.classList.remove("hidden");
     });
   </script>
 </body>
