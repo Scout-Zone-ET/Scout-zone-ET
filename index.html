@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scout Zone ET - Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #007bff;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #confirmation {
+      display: none;
+      text-align: center;
+    }
+    #confirmation img {
+      width: 200px;
+      margin-top: 15px;
+    }
+    .player-id {
+      font-weight: bold;
+      font-size: 18px;
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Scout Zone ET</h2>
+    <form id="registration-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required />
+
+      <label for="age">Age</label>
+      <input type="number" id="age" required />
+
+      <label for="position">Position</label>
+      <input type="text" id="position" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" required />
+
+      <label for="region">Region (Ethiopia)</label>
+      <input type="text" id="region" required />
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div id="confirmation">
+      <p>✅ Registration submitted successfully!</p>
+      <p>Your Player ID:</p>
+      <p class="player-id" id="pid"></p>
+      <p>Now pay <strong>5 USDT</strong> to complete registration:</p>
+      <img src="14cd9bf2-14ee-470f-af26-579f82eab6f0.png" alt="Binance Pay QR Code">
+      <p>📱 Use Binance App to scan and send</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("registration-form");
+    const confirmation = document.getElementById("confirmation");
+    const pidText = document.getElementById("pid");
+
+    function generateID() {
+      return 'SZET-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const playerId = generateID();
+
+      const data = {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        position: document.getElementById("position").value,
+        phone: document.getElementById("phone").value,
+        region: document.getElementById("region").value,
+        playerId: playerId,
+      };
+
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbzgCFvpKlhPw8BzvTUmnDKQT9ieoCAxhyKruyDL6S13G204QMS7a8O4uJgsBKqN8t4W8g/exec", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        form.style.display = "none";
+        pidText.textContent = playerId;
+        confirmation.style.display = "block";
+      } catch (err) {
+        alert("There was a problem submitting your registration. Try again later.");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
