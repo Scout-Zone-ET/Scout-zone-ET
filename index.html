@@ -8,7 +8,7 @@
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
   <div class="bg-gray-800 p-6 rounded-xl w-full max-w-md shadow-xl">
-    <h1 class="text-2xl font-bold text-center mb-6">🇪🇹 Real Madrid Scout Registration – Ethiopia</h1>
+    <h1 class="text-2xl font-bold text-center mb-6">Scout Zone ET</h1>
     
     <form id="scoutForm" class="space-y-4">
       <input name="name" placeholder="Full Name" required class="w-full p-3 bg-gray-700 rounded" />
@@ -43,18 +43,21 @@
       const playerId = generatePlayerID();
       playerIdDisplay.textContent = `Your Player ID: ${playerId}`;
 
-      const data = new FormData();
-      data.append("entry.1111111111", form.name.value);     // Full Name
-      data.append("entry.2222222222", form.age.value);      // Age
-      data.append("entry.3333333333", form.position.value); // Position
-      data.append("entry.4444444444", form.phone.value);    // Phone Number
-      data.append("entry.5555555555", form.region.value);   // Region
-      data.append("entry.6666666666", playerId);            // Unique ID
+      const data = {
+        name: form.name.value,
+        age: form.age.value,
+        position: form.position.value,
+        phone: form.phone.value,
+        region: form.region.value,
+        playerId: playerId
+      };
 
-      fetch("https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse", {
+      fetch("https://script.google.com/macros/s/AKfycbzuulwPd2QV5XjaFUviyOiW4Jz4TFre4b8ywDQRJObSoY5OlRVqJO1n_40fQtCw3djFXg/exec", {
         method: "POST",
-        mode: "no-cors",
-        body: data
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
       });
 
       form.reset();
