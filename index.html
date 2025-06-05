@@ -1,74 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-900 text-white">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scout Zone ET</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="flex items-center justify-center min-h-screen p-4">
-  <div class="bg-gray-800 p-6 rounded-xl w-full max-w-md shadow-xl">
-    <h1 class="text-2xl font-bold text-center mb-6">Scout Zone ET</h1>
-    
-    <form id="scoutForm" class="space-y-4">
-      <input name="name" placeholder="Full Name" required class="w-full p-3 bg-gray-700 rounded" />
-      <input name="age" placeholder="Age" type="number" required class="w-full p-3 bg-gray-700 rounded" />
-      <input name="position" placeholder="Position (e.g. Midfielder)" required class="w-full p-3 bg-gray-700 rounded" />
-      <input name="phone" placeholder="Phone Number" required class="w-full p-3 bg-gray-700 rounded" />
-      <input name="region" placeholder="Region (e.g. Addis Ababa)" required class="w-full p-3 bg-gray-700 rounded" />
-      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded font-bold">Register</button>
-    </form>
-
-    <div id="result" class="mt-6 text-center hidden">
-      <h2 class="text-green-400 font-bold text-lg">🎉 Registered Successfully!</h2>
-      <p class="mt-2 text-gray-300" id="playerIdDisplay"></p>
-      <p class="mt-4 text-yellow-400">Send payment to Binance ID: <strong>816833590</strong></p>
-      <img src="14cd9bf2-14ee-470f-af26-579f82eab6f0.png" alt="Binance QR" class="mx-auto mt-4 rounded" />
-      
-      <!-- Go to Telegram Button -->
-      <a href="https://t.me/ScoutZoneET" target="_blank" class="inline-block mt-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-200">
-        🔗 Go to Telegram
-      </a>
-    </div>
-  </div>
-
-  <script>
-    const form = document.getElementById("scoutForm");
-    const result = document.getElementById("result");
-    const playerIdDisplay = document.getElementById("playerIdDisplay");
-
-    function generatePlayerID() {
-      const id = "ETH-" + Math.random().toString(36).substring(2, 7).toUpperCase();
-      return id;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scout Zone ET - Registration Update</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fbfd;
+      color: #333;
+      margin: 0;
+      padding: 0;
     }
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+    .container {
+      max-width: 700px;
+      margin: 5% auto;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      border: 2px solid #00ffff;
+    }
 
-      const playerId = generatePlayerID();
-      playerIdDisplay.textContent = `Your Player ID: ${playerId}`;
+    h1 {
+      color: #00ffff;
+      text-align: center;
+    }
 
-      const data = {
-        name: form.name.value,
-        age: form.age.value,
-        position: form.position.value,
-        phone: form.phone.value,
-        region: form.region.value,
-        playerId: playerId
-      };
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
 
-      fetch("https://script.google.com/macros/s/AKfycbzuulwPd2QV5XjaFUviyOiW4Jz4TFre4b8ywDQRJObSoY5OlRVqJO1n_40fQtCw3djFXg/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
+    .button {
+      display: block;
+      width: fit-content;
+      background-color: #00ffff;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin: 2rem auto 0;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
 
-      form.reset();
-      form.classList.add("hidden");
-      result.classList.remove("hidden");
-    });
-  </script>
+    .button:hover {
+      background-color: #00cccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📢 Registration Update</h1>
+    <p>Thank you for your interest in <strong>Scout Zone ET</strong>. We've made an important change to simplify the registration process for players aged <strong>15 to 23</strong>.</p>
+
+    <p>All registrations will now be handled through a <strong>Google Form</strong> instead of the website. This ensures a smoother and more accessible experience for everyone.</p>
+
+    <p>✅ If you've paid the <strong>1,000 ETB</strong> application fee, please make sure to include your payment details in the form. Payment can be made via <strong>Telebirr (0970677041)</strong> or <strong>Bank of Abyssinia (95641113)</strong>, account holder: <strong>Dagmawi Tesfaye</strong>.</p>
+
+    <a class="button" href="https://forms.gle/jBQzYaVXGTFn7tG6A" target="_blank">Register via Google Form</a>
+
+    <p style="text-align: center; margin-top: 2rem;">We appreciate your understanding and support. Let's build the future of Ethiopian football together! ⚽</p>
+  </div>
 </body>
 </html>
